@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Página de Filmes</title>
+    <style>
+        body{
+            background-color: black;
+        }
+        h1{
+            color:white;
+            text-align: center;
+        }
+        .container{
+            color: black;
+            background-color: rgb(243, 236, 174);
+            border: 2px solid red;
+        }
+        body{
+            text-align: center;
+        
+        }
+        table{
+            margin: auto;
+            width: 800px;
+            border-collapse: collapse;
+        }
+        td{
+            border: 1px solid;
+        }
+        tr.cor{
+            background-color: rgb(194, 60, 60);
+        }
+        
+    </style>
+
+
+</head>
+<body>
+    <div class="cabeçalho">
+    <h1> Página de Filmes </h1>
+    </div>
+    <div class="container">
+        <div class="Registro">
+            <p><b>Formulário de Entrada dos campos de filme:</b></p>
+            <form>
+            <button><a href="">Incluir</a></button>
+            <br><br>
+            <label for="ipSala">Registro do Filme </label>
+            <input id="ipSala" type="text" name="ipSala">
+            <input type="reset" value="Excluir"> <br> <br>
+
+
+            <label for="ipRegistroSala">Registro do Filme a alterar</label>
+            <input id="ipRegistroSala" type="text" name="ipRegistroSala">
+            <input type="submit" value="Alterar">
+            <input type="submit" value="Salvar Alteração"><br><br>
+        </div>
+        <div class="Filtro">
+            <p><b>Filtro</b></p>
+            <label for="ipListar">Registro do Filme </label>
+            <input id="ipListar" type="text" name="ipListar">
+
+            <input type="submit" value="Listar-1">  
+            <input type="submit" value="Listar-Todos"> <br><br>
+            </form>
+        </div>
+        <table> 
+            <tr class="cor">
+                <td><b>Código</b></td>
+                <td><b>Nome</b></td>
+                <td><b>Ano de lançamento</b></td>
+                <td><b>Diretor</b></td>
+                <td><b>Atores</b></td>
+            </tr>
+            <tr>
+                <td>111-111</td>
+                <td>Mad Max: Estrada da Fúria</td>
+                <td>2015</td>
+                <td>George Miller</td>
+                <td>Tom Hardy; Charlize Theron; Zoe Kravitz</td>
+            </tr>
+            <tr>
+                <td>222-222</td>
+                <td>Star Wars: Episódio IX</td>
+                <td>2019</td>
+                <td>J. J. Abrams</td>
+                <td>Daisy Ridley; Adam Driver; Oscar Isaac</td>
+            </tr>
+        </table>
+        <br> 
+    </div>
+    <div class="imagem">
+        <img src="img/filmes1.png" width="600" height="500">
+    </div>
+</body>
+</html>
