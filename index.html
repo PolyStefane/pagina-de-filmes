@@ -10,20 +10,25 @@
         h1{
             color:white;
             text-align: center;
-            font-family:monospace;
+            font-family:monospace
         }
         .container{
             color: black;
             background-color: rgb(243, 238, 196);
             border: 2px solid red;
+            border-radius: 10px;
         }
         body{
             text-align: center;
-        
+            background-image: url(img/escuro4.jpg);
+            background-size: 100%;
+            background-repeat: no-repeat;
+            padding: 3em;
+            
         }
         table{
             margin: auto;
-            width: 800px;
+            width: 500px;
             border-collapse: collapse;
         }
         td{
@@ -43,30 +48,31 @@
     </div>
     <div class="container">
         <div class="Registro">
-            <p><b>Formulário de Entrada dos campos de filme:</b></p>
+            <h3>Preencha os dados abaixo para incluir/excluir/alterar/listar uma sala:</h3>
             <form>
-            <button><a href="https://polystefane.github.io/cadastro-filmes/">Incluir</a></button>
-            <br><br>
-            <label for="ipFilme">Registro do Filme </label>
-            <input id="ipFilme" type="text" name="ipFilme">
-            <input type="reset" value="Excluir"> <br> <br>
+                <label for="ipCodigo"><b>Código do filme:</b></label>
+                <input id="ipCodigo" type="text" name="ipCodigo" maxlength="8">
+                <label for="ipNome"><b>Nome do filme:</b></label>
+                <input id="ipNome" type="text" name="ipNome">
+                <br><br>
+                <label for="ipAno"><b>Ano de lançamento:</b></label>
+                <input id="ipAno" type="number" name="ipAno">
+                <label for="ipDiretor"><b>Diretor:</b></label>
+                <input id="ipDiretor" type="text" name="ipDiretor"> 
+                <br><br>
+                <label for="ipAtores"><b>Atores:</b></label>
+                <input id="ipAtores" type="text" name="ipAtores">
+                <p>Se houver mais de um ator para cadastrar separe com vírgulas (,)</p>
 
-
-            <label for="ipRegistroFilme">Registro do Filme a alterar</label>
-            <input id="ipRegistroFilme" type="text" name="ipRegistroFilme">
-            <input type="submit" value="Alterar">
-            <input type="submit" value="Salvar Alteração"><br><br>
-        </div>
-        <div class="Filtro">
-            <p><b>Filtro</b></p>
-            <label for="ipListar">Registro do Filme </label>
-            <input id="ipListar" type="text" name="ipListar">
-
-            <input type="submit" value="Listar-1">  
-            <input type="submit" value="Listar-Todos"> <br><br>
+                <button type="button" onclick="incluir()">Incluir</button>
+                <button type="button" onclick="excluir()">Excluir</button>
+                <button type="button" onclick="alterar()">Alterar</button>
+                <button type="button" onclick="exibirUm()">Listar - 1</button>
+                <button type="button" onclick="exibirTodos()">Listar - Todos</button>
+                <br><br>
             </form>
-        </div>
-        <table> 
+        
+        <table id="tabela"> 
             <tr class="cor">
                 <td><b>Código</b></td>
                 <td><b>Nome</b></td>
@@ -74,25 +80,140 @@
                 <td><b>Diretor</b></td>
                 <td><b>Atores</b></td>
             </tr>
-            <tr>
-                <td>111-111</td>
-                <td>Mad Max: Estrada da Fúria</td>
-                <td>2015</td>
-                <td>George Miller</td>
-                <td>Tom Hardy; Charlize Theron; Zoe Kravitz</td>
-            </tr>
-            <tr>
-                <td>222-222</td>
-                <td>Star Wars: Episódio IX</td>
-                <td>2019</td>
-                <td>J. J. Abrams</td>
-                <td>Daisy Ridley; Adam Driver; Oscar Isaac</td>
-            </tr>
+            
         </table>
         <br> 
     </div>
-    <div class="imagem">
-        <img src="img/filmes1.png" width="600" height="500">
-    </div>
+
+    <script>
+        let filmes=[];
+
+        function validarCodigo(ipCodigo){
+        for (let i = 0; i < filmes.length; i++){
+            if (filmes[i].ipCodigo === ipCodigo){
+            return false;   //existe
+            }
+        }
+        return true;  //nao existe
+        }
+
+        function incluir(){
+            let ipCodigo = document.getElementById("ipCodigo").value.toUpperCase();
+            let ipNome = document.getElementById("ipNome").value;
+            let ipAno = document.getElementById("ipAno").value;
+            let ipDiretor = document.getElementById("ipDiretor").value;
+            let ipAtores = document.getElementById("ipAtores").value;
+
+            if (validarCodigo(ipCodigo) == false){
+                alert ("O código cadastrado já existe! ");
+                return;
+            }
+        
+            let filme  = {
+                    ipCodigo: ipCodigo,
+                    ipNome: ipNome,
+                    ipAno: ipAno,
+                    ipDiretor: ipDiretor,
+                    ipAtores: ipAtores
+                };
+                filmes.push(filme);
+                alert("Filme cadastrado com sucesso !!!");
+            
+        }
+
+        function excluir(){
+            let ipCodigo = document.getElementById("ipCodigo").value.toUpperCase();
+
+            for (let i=0; i < filmes.length; i++){
+                if (filmes[i].ipCodigo === ipCodigo){
+                    filmes.splice(i, 1);
+                    alert("O filme foi removida com sucesso!");
+                    return;
+                }
+            }
+            alert("Filme não encontrado!");
+        }
+
+        function alterar(){
+            let ipCodigo = document.getElementById("ipCodigo").value.toUpperCase();
+            for (let i=0; i < filmes.length; i++){
+                if(filmes[i].ipCodigo === ipCodigo){
+                    filmes[i].ipNome = document.getElementById("ipNome").value;
+                    filmes[i].ipAno = document.getElementById("ipAno").value;
+                    filmes[i].ipDiretor = document.getElementById("ipDiretor").value;
+                    filmes[i].ipAtores = document.getElementById("ipAtores").value;
+                    alert("Os dados do filme atualizados com sucesso!");
+                    return;
+                }
+            }
+            alert("Código não encontrado!");
+        }
+
+        function exibirUm(){
+            let ipCodigo = document.getElementById("ipCodigo").value.toUpperCase();
+            let tabela = document.getElementById("tabela");
+
+            tabela.innerHTML = `
+                <tr class="cor">
+                    <td><b>Código</b></td>
+                    <td><b>Nome</b></td>
+                    <td><b>Ano</b></td>
+                    <td><b>Diretor</b></td>
+                    <td><b>Atores</b></td>
+                </tr>
+            `;
+
+            for (let i = 0; i < filmes.length; i++){
+                if(filmes[i].ipCodigo === ipCodigo){
+                    let row = tabela.insertRow();
+                    let codigoCell = row.insertCell(0);
+                    let nomeCell = row.insertCell(1);
+                    let anoCell = row.insertCell(2);
+                    let diretorCell = row.insertCell(3);
+                    let atoresCell = row.insertCell(4);
+
+                    codigoCell.innerText = filmes[i].ipCodigo;
+                    nomeCell.innerText = filmes[i].ipNome;
+                    anoCell.innerText = filmes[i].ipAno;
+                    diretorCell.innerText = filmes[i].ipDiretor;
+                    atoresCell.innerText = filmes[i].ipAtores;
+
+                    return;
+                }
+            }
+            alert("Código não encontrado!");
+        }
+
+        function exibirTodos(){
+            let tabela = document.getElementById("tabela");
+          
+            tabela.innerHTML = `
+                 <tr class="cor">
+                    <td><b>Código</b></td>
+                    <td><b>Nome</b></td>
+                    <td><b>Ano</b></td>
+                    <td><b>Diretor</b></td>
+                    <td><b>Atores</b></td>
+                </tr>
+                `;
+
+            for (let i = 0; i < filmes.length; i++){
+                let row = tabela.insertRow();
+                let codigoCell = row.insertCell(0);
+                let nomeCell = row.insertCell(1);
+                let anoCell = row.insertCell(2);
+                let diretorCell = row.insertCell(3);
+                let atoresCell = row.insertCell(4);
+
+                codigoCell.innerText = filmes[i].ipCodigo;
+                nomeCell.innerText = filmes[i].ipNome;
+                anoCell.innerText = filmes[i].ipAno;
+                diretorCell.innerText = filmes[i].ipDiretor;
+                atoresCell.innerText = filmes[i].ipAtores;
+            }
+        }
+
+
+    </script>
 </body>
 </html>
